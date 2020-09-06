@@ -1,3 +1,3 @@
-import TaskBoard from './TaskBoard'
+import TaskBoard from './TaskBoard';
 
-export default TaskBoard
+export default TaskBoard;
