@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react';
 import KanbanBoard from '@lourenci/react-kanban';
 import '@lourenci/react-kanban/dist/styles.css';
 import { propOr } from 'ramda';
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
 
 import Task from 'components/Task';
 import ColumnHeader from 'components/ColumnHeader';
@@ -10,9 +12,7 @@ import AddPopup from 'components/AddPopup';
 import EditPopup from 'components/EditPopup';
 import TasksRepository from 'repositories/TasksRepository';
 import TaskForm from 'forms/TaskForm';
-
-import Fab from '@material-ui/core/Fab';
-import AddIcon from '@material-ui/icons/Add';
+import TaskPresenter from 'presenters/TaskPresenter';
 import useStyles from './useStyles';
 
 const STATES = [
@@ -125,7 +125,7 @@ const TaskBoard = () => {
   const handleTaskCreate = (params) => {
     const attributes = TaskForm.attributesToSubmit(params);
     return TasksRepository.create(attributes).then(({ data: { task } }) => {
-      loadColumnInitial(task.state);
+      loadColumnInitial(TaskPresenter.state(task));
       handleClose();
     });
   };
@@ -138,14 +138,14 @@ const TaskBoard = () => {
     const attributes = TaskForm.attributesToSubmit(task);
 
     return TasksRepository.update(task.id, attributes).then(() => {
-      loadColumnInitial(task.state);
+      loadColumnInitial(TaskPresenter.state(task));
       handleClose();
     });
   };
 
   const handleTaskDestroy = (task) => {
     return TasksRepository.destroy(task.id).then(() => {
-      loadColumnInitial(task.state);
+      loadColumnInitial(TaskPresenter.state(task));
       handleClose();
     });
   };

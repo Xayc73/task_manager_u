@@ -1,11 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { has } from 'ramda';
-
 import TextField from '@material-ui/core/TextField';
 
+import TaskPresenter from 'presenters/TaskPresenter';
 import UserSelect from 'components/UserSelect';
-
 import useStyles from './useStyles';
 
 const Form = ({ errors, onChange, task }) => {
@@ -20,7 +19,7 @@ const Form = ({ errors, onChange, task }) => {
         error={has('name', errors)}
         helperText={errors.name}
         onChange={handleChangeTextField('name')}
-        value={task.name}
+        value={TaskPresenter.name(task)}
         label="Name"
         required
         margin="dense"
@@ -29,7 +28,7 @@ const Form = ({ errors, onChange, task }) => {
         error={has('description', errors)}
         helperText={errors.description}
         onChange={handleChangeTextField('description')}
-        value={task.description}
+        value={TaskPresenter.description(task)}
         label="Description"
         required
         multiline
@@ -37,7 +36,7 @@ const Form = ({ errors, onChange, task }) => {
       />
       <UserSelect
         label="Author"
-        value={task.author}
+        value={TaskPresenter.author(task)}
         onChange={handleChangeSelect('author')}
         userType="Manager"
         isRequired
@@ -46,7 +45,7 @@ const Form = ({ errors, onChange, task }) => {
       />
       <UserSelect
         label="Assignee"
-        value={task.assignee}
+        value={TaskPresenter.assignee(task)}
         onChange={handleChangeSelect('assignee')}
         userType="Developer"
         isRequired

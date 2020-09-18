@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { isEmpty } from 'ramda';
 
 import AsyncSelect from 'react-select/async';
 import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
-
 import InputLabel from '@material-ui/core/InputLabel';
 
 import UsersRepository from 'repositories/UsersRepository';
-
+import UserPresenter from 'presenters/UserPresenter';
 import useStyles from './useStyles';
 
 const UserSelect = ({ error, userType, label, isClearable, isDisabled, isRequired, onChange, value, helperText }) => {
@@ -28,8 +28,8 @@ const UserSelect = ({ error, userType, label, isClearable, isDisabled, isRequire
             cacheOptions
             loadOptions={handleLoadOptions}
             defaultOptions
-            getOptionLabel={(user) => `${user.firstName} ${user.lastName}`}
-            getOptionValue={(user) => user.id}
+            getOptionLabel={(user) => (isEmpty(user) ? '' : UserPresenter.fullName(user))}
+            getOptionValue={(user) => UserPresenter.id(user)}
             isDisabled={isDisabled}
             isClearable={isClearable}
             defaultValue={value}
@@ -52,6 +52,8 @@ UserSelect.defaultProps = {
   isDisabled: false,
   isClearable: false,
   isRequired: true,
+  value: {},
+  helperText: '',
 };
 
 UserSelect.propTypes = {
@@ -61,8 +63,8 @@ UserSelect.propTypes = {
   isClearable: PropTypes.bool,
   isDisabled: PropTypes.bool,
   isRequired: PropTypes.bool,
-  onChange: PropTypes.func,
-  value: PropTypes.shape(),
+  onChange: PropTypes.func.isRequired,
+  value: UserPresenter.shape(),
   helperText: PropTypes.string,
 };
 
