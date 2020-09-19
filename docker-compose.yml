@@ -23,6 +23,10 @@ services:
       DATABASE_HOST: db
       DATABASE_USERNAME: postgres
       DATABASE_PASSWORD: postgres
+      CI: ${CI}
+      TRAVIS: ${TRAVIS}
+      TRAVIS_JOB_ID: ${TRAVIS_JOB_ID}
+      TRAVIS_BRANCH: ${TRAVIS_BRANCH}
     command: bundle exec rails s -b '0.0.0.0' -p 3000
 
   db:
