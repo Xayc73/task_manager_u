@@ -21,4 +21,11 @@ class UserMailer < ApplicationMailer
 
     mail(to: user.email, subject: 'Task Deleted')
   end
+
+  def user_instruction
+    user = params[:user]
+
+    mail(to: user.email, subject: 'Info')
+  end
+
 end

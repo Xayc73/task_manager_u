@@ -23,4 +23,11 @@ class UserMailerPreview < ActionMailer::Preview
 
     UserMailer.with(params).task_deleted
   end
+
+  def user_instruction
+    user = User.first
+    params = { user: user }
+
+    UserMailer.with(params).user_instruction
+  end
 end
