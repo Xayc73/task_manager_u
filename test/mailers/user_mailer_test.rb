@@ -48,4 +48,19 @@ class UserMailerTest < ActionMailer::TestCase
     assert_equal 'Task Deleted', email.subject
     assert email.body.to_s.include?("Task #{task.id} was deleted")
   end
+
+  test 'reminder send' do
+    user = create(:user)
+    params = { user: user }
+    email = UserMailer.with(params).reminder_send
+
+    assert_emails 1 do
+      email.deliver_now
+    end
+
+    assert_equal ['noreply@taskmanager.com'], email.from
+    assert_equal [user.email], email.to
+    assert_equal 'Password Recovery Request', email.subject
+    assert email.body.to_s.include?(user.reset_password_token)
+  end
 end

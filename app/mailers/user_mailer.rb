@@ -28,4 +28,10 @@ class UserMailer < ApplicationMailer
     mail(to: user.email, subject: 'Info')
   end
 
+  def reminder_send
+    @user = params[:user]
+    @url = edit_reminder_url(@user.reset_password_token)
+
+    mail(to: @user.email, subject: 'Password Recovery Request')
+  end
 end
