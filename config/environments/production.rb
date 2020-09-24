@@ -61,6 +61,7 @@ Rails.application.configure do
   # config.active_job.queue_name_prefix = "app_production"
 
   config.action_mailer.perform_caching = false
+  config.action_mailer.default_url_options = {:host => ENV['MAILER_PROD_HOST']}
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
     user_name: ENV['MAILER_USERNAME'],
