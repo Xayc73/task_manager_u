@@ -1,5 +1,5 @@
 class UserMailer < ApplicationMailer
-  default from: 'noreply@taskmanager.com'
+  default from: ENV['DEFAULT_FROM_EMAIL']
 
   def task_created
     user = params[:user]
