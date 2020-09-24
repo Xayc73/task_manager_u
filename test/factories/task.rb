@@ -2,8 +2,8 @@ FactoryBot.define do
   factory :task do
     name
     description
-    author factory: :manager
-    assignee factory: :developer
+    author_id { 1 }
+    assignee_id { 1 }
     state
     expired_at
   end
