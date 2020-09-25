@@ -11,7 +11,7 @@ class UserMailerTest < ActionMailer::TestCase
       email.deliver_now
     end
 
-    assert_equal ['noreply@taskmanager.com'], email.from
+    assert_equal ['dbtaskmanager@gmail.com'], email.from
     assert_equal [user.email], email.to
     assert_equal 'New Task Created', email.subject
     assert email.body.to_s.include?("Task #{task.id} was created")
@@ -27,7 +27,7 @@ class UserMailerTest < ActionMailer::TestCase
       email.deliver_now
     end
 
-    assert_equal ['noreply@taskmanager.com'], email.from
+    assert_equal ['dbtaskmanager@gmail.com'], email.from
     assert_equal [user.email], email.to
     assert_equal 'Task Updated', email.subject
     assert email.body.to_s.include?("Task #{task.id} was updated")
@@ -43,7 +43,7 @@ class UserMailerTest < ActionMailer::TestCase
       email.deliver_now
     end
 
-    assert_equal ['noreply@taskmanager.com'], email.from
+    assert_equal ['dbtaskmanager@gmail.com'], email.from
     assert_equal [user.email], email.to
     assert_equal 'Task Deleted', email.subject
     assert email.body.to_s.include?("Task #{task.id} was deleted")
@@ -58,7 +58,7 @@ class UserMailerTest < ActionMailer::TestCase
       email.deliver_now
     end
 
-    assert_equal ['noreply@taskmanager.com'], email.from
+    assert_equal ['dbtaskmanager@gmail.com'], email.from
     assert_equal [user.email], email.to
     assert_equal 'Password Recovery Request', email.subject
     assert email.body.to_s.include?(user.reset_password_token)
