@@ -15,7 +15,7 @@ class Web::RemindersController < Web::ApplicationController
     user.generate_password_token
 
     if user.save
-      UserMailer.with({ user: user }).reminder_send.deliver_now
+      UserMailer.with({ user: user }).reminder_send.deliver_later
       flash[:notice] = 'Link to reset your password was sent to your email.
         Please, check it out'
       redirect_to(:new_reminder)
