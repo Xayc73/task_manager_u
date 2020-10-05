@@ -47,9 +47,10 @@ class Admin::UsersControllerTest < ActionController::TestCase
   end
 
   test 'should delete destroy' do
-    user = create(:user)
+    user_attr = attributes_for(:user)
+    user = create(:user, user_attr)
     delete :destroy, params: { id: user.id }
     assert_response :redirect
-    assert_nil User.find_by_email(user[:email])
+    assert_nil User.find_by_email(user_attr[:email])
   end
 end
