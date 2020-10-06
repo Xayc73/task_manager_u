@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class Web::RemindersControllerTest < ActionController::TestCase
+class Web::PasswordsControllerTest < ActionController::TestCase
   test 'should get new' do
     get :new
     assert_response :success
@@ -9,11 +9,11 @@ class Web::RemindersControllerTest < ActionController::TestCase
   test 'should post create' do
     user = create(:user)
 
-    post :create, params: { reminder_send_form: { email: '' } }
+    post :create, params: { password_send_form: { email: '' } }
     assert_response :success
 
     assert_emails 1 do
-      post :create, params: { reminder_send_form: { email: user.email } }
+      post :create, params: { password_send_form: { email: user.email } }
     end
 
     assert_response :redirect
@@ -39,7 +39,7 @@ class Web::RemindersControllerTest < ActionController::TestCase
 
     put :update, params: {
       id: user.reset_password_token,
-      reminder_change_form: {
+      password_change_form: {
         password: user.password,
         password_confirmation: user.password,
       },

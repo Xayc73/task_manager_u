@@ -1,4 +1,4 @@
-class ReminderChangeForm
+class PasswordChangeForm
   include ActiveModel::Model
 
   attr_accessor(

@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   scope module: :web do
     resource :board, only: :show
     resource :session, only: [:new, :create, :destroy]
-    resources :reminders, only: [:new, :create, :edit, :update]
+    resources :passwords, only: [:new, :create, :edit, :update]
     resources :developers, only: [:new, :create]
   end
 

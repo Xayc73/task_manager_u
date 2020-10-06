@@ -1,4 +1,4 @@
-class ReminderSendForm
+class PasswordSendForm
   include ActiveModel::Model
 
   attr_accessor(
@@ -6,7 +6,7 @@ class ReminderSendForm
   )
 
   validates :email, presence: true, format: { with: /\A\S+@.+\.\S+\z/ }
-  validate :user_valid?
+  validate :email_exist
 
   def user
     User.find_by(email: email)
@@ -14,9 +14,7 @@ class ReminderSendForm
 
   private
 
-  def user_valid?
-    if user.blank?
-      errors.add(:email, 'email not found!')
-    end
+  def email_exist
+    errors.add(:email, 'email not found!') if user.blank?
   end
 end

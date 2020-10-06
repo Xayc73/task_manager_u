@@ -11,8 +11,8 @@ class User < ApplicationRecord
     self.reset_password_sent_at = Time.current.utc
   end
 
-  def password_token_valid?
-    (reset_password_sent_at + 24.hours) > Time.current.utc
+  def password_token_invalid?
+    (reset_password_sent_at + 24.hours) < Time.current.utc
   end
 
   def reset_password(password)
