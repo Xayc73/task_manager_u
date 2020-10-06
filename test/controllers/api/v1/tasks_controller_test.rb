@@ -36,7 +36,7 @@ class Api::V1::TasksControllerTest < ActionController::TestCase
     task_attributes = attributes_for(:task).
       merge({ author_id: author.id, assignee_id: assignee.id }).
       stringify_keys
-      
+
     patch :update, params: { id: task.id, format: :json, task: task_attributes }
     assert_response :success
 
