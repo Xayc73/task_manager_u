@@ -36,15 +36,14 @@ class Web::PasswordsControllerTest < ActionController::TestCase
 
   test 'should put update' do
     user = create(:user)
-
-    put :update, params: {
+    attrs = {
       id: user.reset_password_token,
       password_change_form: {
         password: user.password,
         password_confirmation: user.password,
       },
     }
-
+    put :update, params: attrs
     assert_response :redirect
   end
 end

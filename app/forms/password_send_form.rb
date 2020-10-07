@@ -6,7 +6,7 @@ class PasswordSendForm
   )
 
   validates :email, presence: true, format: { with: /\A\S+@.+\.\S+\z/ }
-  validate :email_exist
+  validate :check_user_exists
 
   def user
     User.find_by(email: email)
@@ -14,7 +14,7 @@ class PasswordSendForm
 
   private
 
-  def email_exist
+  def check_user_exists
     errors.add(:email, 'email not found!') if user.blank?
   end
 end

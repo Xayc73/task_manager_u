@@ -37,15 +37,12 @@ class Web::PasswordsController < Web::ApplicationController
 
   def update
     @password_change = PasswordChangeForm.new(update_params)
-
     return render(:edit) if @password_change.invalid?
 
     user = User.find_by(reset_password_token: params[:id])
-
     return render(:edit) if user.blank? || user.password_token_invalid?
 
     user.reset_password(@password_change.password)
-
     return redirect_to(:new_session) if user.save
 
     render(:edit)
