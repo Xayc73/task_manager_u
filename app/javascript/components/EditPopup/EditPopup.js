@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { isNil } from 'ramda';
@@ -13,7 +14,7 @@ import IconButton from '@material-ui/core/IconButton';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 import Form from 'components/Form';
-
+import TaskPresenter from 'presenters/TaskPresenter';
 import useStyles from './useStyles';
 
 const EditPopup = ({ cardId, onClose, onDestroyCard, onLoadCard, onUpdateCard }) => {
@@ -59,7 +60,11 @@ const EditPopup = ({ cardId, onClose, onDestroyCard, onLoadCard, onUpdateCard })
               <CloseIcon />
             </IconButton>
           }
-          title={isLoading ? 'Your task is loading. Please be patient.' : `Task # ${task.id} [${task.name}]`}
+          title={
+            isLoading
+              ? 'Your task is loading. Please be patient.'
+              : `Task # ${TaskPresenter.id(task)} [${TaskPresenter.name(task)}]`
+          }
         />
         <CardContent>
           {isLoading ? (
