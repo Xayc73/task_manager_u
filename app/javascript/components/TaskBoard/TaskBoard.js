@@ -32,9 +32,9 @@ const MODES = {
 };
 
 const initialBoard = {
-  columns: STATES.map((column) => ({
-    id: column.key,
-    title: column.value,
+  columns: STATES.map(({ key, value }) => ({
+    id: key,
+    title: value,
     cards: [],
     meta: {},
   })),
@@ -57,22 +57,22 @@ const TaskBoard = () => {
   };
 
   const loadColumnInitial = (state, page = 1, perPage = 10) => {
-    loadColumn(state, page, perPage).then(({ data }) => {
+    loadColumn(state, page, perPage).then(({ data: { items, meta } }) => {
       setBoardCards((prevState) => {
         return {
           ...prevState,
-          [state]: { cards: data.items, meta: data.meta },
+          [state]: { cards: items, meta },
         };
       });
     });
   };
 
   const loadColumnMore = (state, page = 1, perPage = 10) => {
-    loadColumn(state, page, perPage).then(({ data }) => {
+    loadColumn(state, page, perPage).then(({ data: { items, meta } }) => {
       setBoardCards((prevState) => {
         return {
           ...prevState,
-          [state]: { cards: prevState[state].cards.concat(data.items), meta: data.meta },
+          [state]: { cards: prevState[state].cards.concat(items), meta },
         };
       });
     });
@@ -97,16 +97,16 @@ const TaskBoard = () => {
     STATES.map(({ key }) => loadColumnInitial(key));
   };
 
-  const handleCardDragEnd = (task, source, destination) => {
-    const transition = task.transitions.find(({ to }) => destination.toColumnId === to);
+  const handleCardDragEnd = ({ id, transitions }, { fromColumnId }, { toColumnId }) => {
+    const transition = transitions.find(({ to }) => toColumnId === to);
     if (!transition) {
       return null;
     }
 
-    return TasksRepository.update(task.id, { task: { stateEvent: transition.event } })
+    return TasksRepository.update(id, { task: { stateEvent: transition.event } })
       .then(() => {
-        loadColumnInitial(destination.toColumnId);
-        loadColumnInitial(source.fromColumnId);
+        loadColumnInitial(toColumnId);
+        loadColumnInitial(fromColumnId);
       })
       .catch((error) => {
         alert(`Move failed! ${error.message}`);
