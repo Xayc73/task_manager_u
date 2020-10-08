@@ -9,9 +9,9 @@ import TaskForm from 'forms/TaskForm';
 
 const initialState = {
   board: {
-    columns: STATES.map((column) => ({
-      id: column.key,
-      title: column.value,
+    columns: STATES.map(({ key, value }) => ({
+      id: key,
+      title: value,
       cards: [],
       meta: {},
     })),
@@ -76,16 +76,16 @@ export const useTasksActions = () => {
     });
   };
 
-  const handleCardDragEnd = (task, source, destination) => {
-    const transition = task.transitions.find(({ to }) => destination.toColumnId === to);
+  const handleCardDragEnd = ({ id, transitions }, { fromColumnId }, { toColumnId }) => {
+    const transition = transitions.find(({ to }) => toColumnId === to);
     if (!transition) {
       return null;
     }
 
-    return TasksRepository.update(task.id, { task: { stateEvent: transition.event } })
+    return TasksRepository.update(id, { task: { stateEvent: transition.event } })
       .then(() => {
-        loadColumn(destination.toColumnId);
-        loadColumn(source.fromColumnId);
+        loadColumn(toColumnId);
+        loadColumn(fromColumnId);
       })
       .catch((error) => {
         alert(`Move failed! ${error.message}`);

@@ -70,8 +70,8 @@ const TaskBoard = (props) => {
       {mode === MODES.EDIT && (
         <EditPopup
           onLoadCard={handleTaskLoad}
-          onCardDestroy={handleTaskDestroy}
-          onCardUpdate={handleTaskUpdate}
+          onDestroyCard={handleTaskDestroy}
+          onUpdateCard={handleTaskUpdate}
           onClose={handleClose}
           cardId={openedTaskId}
         />

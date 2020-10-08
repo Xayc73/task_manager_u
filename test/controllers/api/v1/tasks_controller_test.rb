@@ -26,7 +26,7 @@ class Api::V1::TasksControllerTest < ActionController::TestCase
     assert_response :created
 
     data = JSON.parse(response.body)
-    created_task = Task.find(data['task']['id'])
+    created_task = Task.find(data.dig('task', 'id'))
 
     assert created_task.present?
     assert created_task.assignee == assignee
@@ -58,6 +58,6 @@ class Api::V1::TasksControllerTest < ActionController::TestCase
     delete :destroy, params: { id: task.id, format: :json }
     assert_response :success
 
-    assert !Task.where(id: task.id).exists?
+    assert Task.where(id: task.id).blank?
   end
 end

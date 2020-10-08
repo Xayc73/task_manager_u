@@ -31,11 +31,11 @@ class UserMailerPreview < ActionMailer::Preview
     UserMailer.with(params).user_instruction
   end
 
-  def reminder_send
+  def send_password
     user = User.first
     user.generate_password_token
     params = { user: user }
 
-    UserMailer.with(params).reminder_send
+    UserMailer.with(params).send_password
   end
 end

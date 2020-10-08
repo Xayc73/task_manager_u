@@ -17,7 +17,7 @@ class UserMailer < ApplicationMailer
 
   def task_deleted
     user = params[:user]
-    @task = params[:task]
+    @task_id = params[:task_id]
 
     mail(to: user.email, subject: 'Task Deleted')
   end
@@ -28,9 +28,9 @@ class UserMailer < ApplicationMailer
     mail(to: user.email, subject: 'Info')
   end
 
-  def reminder_send
+  def send_password
     @user = params[:user]
-    @url = edit_reminder_url(@user.reset_password_token)
+    @url = edit_password_url(@user.reset_password_token)
 
     mail(to: @user.email, subject: 'Password Recovery Request')
   end
