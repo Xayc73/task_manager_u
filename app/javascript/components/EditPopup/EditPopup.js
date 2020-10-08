@@ -30,24 +30,32 @@ const EditPopup = ({ cardId, onClose, onDestroyCard, onLoadCard, onUpdateCard })
   const handleCardUpdate = () => {
     setSaving(true);
 
-    onUpdateCard(task).catch((error) => {
-      setSaving(false);
-      setErrors(error || {});
+    onUpdateCard(task)
+      .then(() => {
+        onClose();
+      })
+      .catch((error) => {
+        setSaving(false);
+        setErrors(error || {});
 
-      if (error instanceof Error) {
-        alert(`Update Failed! Error: ${error.message}`);
-      }
-    });
+        if (error instanceof Error) {
+          alert(`Update Failed! Error: ${error.message}`);
+        }
+      });
   };
 
   const handleCardDestroy = () => {
     setSaving(true);
 
-    onDestroyCard(task).catch(({ message }) => {
-      setSaving(false);
+    onDestroyCard(task)
+      .then(() => {
+        onClose();
+      })
+      .catch(({ message }) => {
+        setSaving(false);
 
-      alert(`Destrucion Failed! Error: ${message}`);
-    });
+        alert(`Destrucion Failed! Error: ${message}`);
+      });
   };
   const isLoading = isNil(task);
 
