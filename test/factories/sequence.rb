@@ -14,4 +14,10 @@ FactoryBot.define do
   sequence :avatar do |n|
     "avatars/#{n}.jpg"
   end
+  sequence :reset_password_token do |_n|
+    SecureRandom.hex(10)
+  end
+  sequence :reset_password_sent_at do |_n|
+    Time.current.utc
+  end
 end

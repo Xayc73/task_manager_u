@@ -35,6 +35,9 @@ html lang="en"
 
     main#main.mdl-layout__content
       .page-content
+        - if flash[:notice]
+          .notice
+            = flash[:notice]
         = yield
     footer#footer.mdl-mini-footer
       .mdl-mini-footer__left-section
