@@ -1,5 +1,5 @@
 h4 Set new password
-= simple_form_for @reminder_change, url: reminder_path(params[:id]), method: :put do |f|
+= simple_form_for @password_change, url: password_path(params[:id]), method: :put do |f|
   p
     = f.input :password  
     = f.input :password_confirmation  

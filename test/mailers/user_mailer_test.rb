@@ -49,10 +49,10 @@ class UserMailerTest < ActionMailer::TestCase
     assert email.body.to_s.include?("Task #{task.id} was deleted")
   end
 
-  test 'reminder send' do
+  test 'send password' do
     user = create(:user)
     params = { user: user }
-    email = UserMailer.with(params).reminder_send
+    email = UserMailer.with(params).send_password
 
     assert_emails 1 do
       email.deliver_later
