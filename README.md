@@ -1,24 +1,3 @@
 # README
-
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+[![Build Status](https://travis-ci.com/Xayc73/task_manager_u.svg?branch=feature%2Fcoverage)](https://travis-ci.com/Xayc73/task_manager_u)
+[![Coverage Status](https://coveralls.io/repos/github/Xayc73/task_manager_u/badge.svg?branch=feature%2Fcoverage)](https://coveralls.io/github/Xayc73/task_manager_u?branch=feature%2Fcoverage)
